@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Guía completa para Azure Fundamentals (AZ-900). Conceptos, arquitectura, servicios y gobernanza con recursos y asistente IA." />
+    <meta name="theme-color" content="#0078d4" />
+    <title>Azure Fundamentals AZ-900 - Guía Definitiva</title>
+
+    <!-- Fonts & icons preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous" />
+
+    <style>
+        :root {
+            --azure-700: #0078d4;
+            --azure-900: #001f4d;
+            --glass: rgba(255,255,255,0.95);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+        .azure-gradient { background: linear-gradient(135deg, var(--azure-700) 0%, var(--azure-900) 100%); }
+        .section-card { border-radius: 1rem; background: white; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08); border: 1px solid #e6edf5; overflow: hidden; }
+        .topic-badge { background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #3498db; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .glass-effect { background: var(--glass); backdrop-filter: blur(6px); }
+        .skip-link { position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; background: white; padding: .5rem 1rem; border-radius: .5rem; box-shadow: 0 6px 18px rgba(0,0,0,.12); z-index: 60; }
+        /* Minimal responsive tweaks for hero content */
+        header h1 { line-height: 1.02; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    <!-- Navegación Inteligente -->
+    <nav class="glass-effect sticky top-0 z-50 border-b border-gray-200" role="navigation" aria-label="Navegación principal">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 p-2 rounded-lg text-white" aria-hidden="true">
+                    <i class="fab fa-microsoft"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight">AZ-900 <span class="text-blue-600">Mastery</span></span>
+            </div>
+            <div class="hidden lg:flex space-x-8 text-sm font-semibold text-gray-600 uppercase tracking-widest" role="menu">
+                <a role="menuitem" href="#conceptos" class="hover:text-blue-600 transition">Conceptos</a>
+                <a role="menuitem" href="#arquitectura" class="hover:text-blue-600 transition">Infraestructura</a>
+                <a role="menuitem" href="#servicios" class="hover:text-blue-600 transition">Servicios</a>
+                <a role="menuitem" href="#gobernanza" class="hover:text-blue-600 transition">Gobernanza</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Informativo -->
+    <header class="azure-gradient text-white py-20 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-8 pointer-events-none">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path>
+            </svg>
+        </div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <span class="bg-blue-500/30 text-blue-100 px-4 py-1 rounded-full text-xs font-bold mb-6 inline-block uppercase tracking-widest">Actualizado 2025</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4">Domina los Fundamentos de Azure</h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-8 leading-relaxed">
+                Una enciclopedia técnica diseñada para profesionales que buscan la certificación AZ-900. Información clara, concisa y mejorada con asistente inteligente.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button id="ai-generate" type="button" class="bg-white text-blue-900 px-6 py-3 rounded-xl font-bold shadow-md hover:bg-blue-50 transition transform hover:-translate-y-0.5 disabled:opacity-50" aria-describedby="ai-hint">
+                    ✨ Generar Plan de Estudio con IA
+                </button>
+                <a href="#conceptos" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">Empezar a Leer</a>
+            </div>
+            <p id="ai-hint" class="text-xs text-blue-100 mt-3" aria-hidden="true"></p>
+        </div>
+    </header>
+
+    <main id="main" class="container mx-auto px-6 py-16 space-y-24" role="main">
+
+        <!-- 1. CONCEPTOS CLOUD -->
+        <section id="conceptos" class="scroll-mt-24" aria-labelledby="conceptos-h">
+            <div class="flex items-center space-x-4 mb-10">
+                <span class="bg-blue-600 text-white w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl shadow-lg" aria-hidden="true">1</span>
+                <h2 id="conceptos-h" class="text-3xl md:text-4xl font-bold">Conceptos de Cloud Computing</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-8 space-y-6">
+                    <article class="section-card p-8" aria-labelledby="beneficios-h">
+                        <h3 id="beneficios-h" class="text-2xl font-bold mb-4 text-blue-800">¿Por qué la Nube? Beneficios de Negocio</h3>
+                        <p class="text-gray-600 mb-6 italic">La nube no es solo "el ordenador de otra persona", es un modelo de entrega de servicios basado en consumo.</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h4 class="font-bold text-gray-800 uppercase text-sm tracking-tighter mb-1">Alta Disponibilidad (HA)</h4>
+                                <p class="text-sm text-gray-600">Capacidad de un sistema para mantenerse operativo ante fallos. Se mide en SLA y objetivos de disponibilidad (ej. 99.99%).</p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h4 class="font-bold text-gray-800 uppercase text-sm tracking-tighter mb-1">Escalabilidad y Elasticidad</h4>
+                                <p class="text-sm text-gray-600">Escalabilidad: crecer con la carga. Elasticidad: crecer/encoger automáticamente según demanda.</p>
+                            </div>
+                            <div class="border-l-4 border-purple-500 pl-4">
+                                <h4 class="font-bold text-gray-800 uppercase text-sm tracking-tighter mb-1">Predictibilidad de Costes</h4>
+                                <p class="text-sm text-gray-600">De CapEx a OpEx: pagas por uso, lo que favorece presupuestos más ágiles.</p>
+                            </div>
+                            <div class="border-l-4 border-orange-500 pl-4">
+                                <h4 class="font-bold text-gray-800 uppercase text-sm tracking-tighter mb-1">Seguridad y Cumplimiento</h4>
+                                <p class="text-sm text-gray-600">Aprovechar las inversiones en seguridad y certificaciones (ej. GDPR, ISO).</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="lg:col-span-4 space-y-6" aria-labelledby="iaas-h">
+                    <div class="section-card p-8 bg-blue-50 border-blue-200">
+                        <h3 id="iaas-h" class="font-bold text-lg mb-4">IaaS vs PaaS vs SaaS</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-blue-100">
+                                <span class="topic-badge mb-2 inline-block">IaaS</span>
+                                <p class="text-xs text-gray-600">Infraestructura como Servicio. Tú gestionas el SO. Máximo control.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-blue-100">
+                                <span class="topic-badge mb-2 inline-block">PaaS</span>
+                                <p class="text-xs text-gray-600">Plataforma. Centrado en código; Azure gestiona el SO y parches.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-blue-100">
+                                <span class="topic-badge mb-2 inline-block">SaaS</span>
+                                <p class="text-xs text-gray-600">Aplicación completa (ej: Office 365). Cero mantenimiento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- 2. INFRAESTRUCTURA GLOBAL -->
+        <section id="arquitectura" class="scroll-mt-24" aria-labelledby="arquitectura-h">
+            <div class="flex items-center space-x-4 mb-10">
+                <span class="bg-indigo-600 text-white w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl shadow-lg" aria-hidden="true">2</span>
+                <h2 id="arquitectura-h" class="text-3xl md:text-4xl font-bold">Infraestructura Global</h2>
+            </div>
+
+            <div class="section-card p-8 bg-indigo-900 text-white">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Componentes de Resiliencia</h3>
+                        <div class="space-y-4">
+                            <div class="flex gap-4">
+                                <div class="bg-indigo-700/50 p-3 rounded-lg" aria-hidden="true"><i class="fas fa-globe text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-xl">Regiones de Azure</h4>
+                                    <p class="text-indigo-200 text-sm">Más de 60 regiones. Cada región agrupa datacenters conectados con baja latencia.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="bg-indigo-700/50 p-3 rounded-lg" aria-hidden="true"><i class="fas fa-shield-alt text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-xl">Zonas de Disponibilidad</h4>
+                                    <p class="text-indigo-200 text-sm">Centros de datos físicamente separados dentro de una región con energía y red independientes.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="bg-indigo-700/50 p-3 rounded-lg" aria-hidden="true"><i class="fas fa-link text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-xl">Regiones Pares</h4>
+                                    <p class="text-indigo-200 text-sm">Regiones emparejadas para recuperación ante desastres.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20">
+                        <h4 class="text-center font-bold mb-4 text-indigo-100 uppercase text-xs tracking-widest">Jerarquía de Contenedores Lógicos</h4>
+                        <div class="space-y-3 text-center">
+                            <div class="border border-indigo-400 p-3 rounded bg-indigo-800 font-bold">Grupos de Gestión</div>
+                            <div class="border border-indigo-400 p-3 rounded bg-indigo-700 font-bold">Suscripciones</div>
+                            <div class="border border-indigo-400 p-3 rounded bg-indigo-600 font-bold">Grupos de Recursos</div>
+                            <div class="border border-indigo-400 p-3 rounded bg-indigo-500 font-bold">Recursos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SERVICIOS PRINCIPALES -->
+        <section id="servicios" class="scroll-mt-24" aria-labelledby="servicios-h">
+            <div class="flex items-center space-x-4 mb-10">
+                <span class="bg-cyan-600 text-white w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl shadow-lg" aria-hidden="true">3</span>
+                <h2 id="servicios-h" class="text-3xl md:text-4xl font-bold">Servicios Principales</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                <div class="section-card p-6 border-t-4 border-blue-500">
+                    <div class="bg-blue-50 text-blue-600 w-10 h-10 rounded flex items-center justify-center mb-4" aria-hidden="true"><i class="fas fa-microchip"></i></div>
+                    <h3 class="font-bold text-xl mb-3">Computación</h3>
+                    <ul class="text-sm space-y-2 text-gray-600">
+                        <li><strong>VMs:</strong> Servidores IaaS puros.</li>
+                        <li><strong>App Services:</strong> Hosting PaaS para webs.</li>
+                        <li><strong>Functions:</strong> Serverless.</li>
+                        <li><strong>AKS:</strong> Kubernetes.</li>
+                    </ul>
+                </div>
+                <div class="section-card p-6 border-t-4 border-indigo-500">
+                    <div class="bg-indigo-50 text-indigo-600 w-10 h-10 rounded flex items-center justify-center mb-4" aria-hidden="true"><i class="fas fa-database"></i></div>
+                    <h3 class="font-bold text-xl mb-3">Datos</h3>
+                    <ul class="text-sm space-y-2 text-gray-600">
+                        <li><strong>Blob Storage:</strong> Archivos masivos.</li>
+                        <li><strong>Azure SQL:</strong> RDBMS PaaS.</li>
+                        <li><strong>Cosmos DB:</strong> NoSQL global.</li>
+                        <li><strong>Disk Storage:</strong> Discos para VMs.</li>
+                    </ul>
+                </div>
+                <div class="section-card p-6 border-t-4 border-green-500">
+                    <div class="bg-green-50 text-green-600 w-10 h-10 rounded flex items-center justify-center mb-4" aria-hidden="true"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="font-bold text-xl mb-3">Redes</h3>
+                    <ul class="text-sm space-y-2 text-gray-600">
+                        <li><strong>VNet:</strong> Red privada.</li>
+                        <li><strong>VPN Gateway:</strong> Conexión segura.</li>
+                        <li><strong>ExpressRoute:</strong> Conexión privada.</li>
+                        <li><strong>Application Gateway:</strong> Balanceador.</li>
+                    </ul>
+                </div>
+                <div class="section-card p-6 border-t-4 border-purple-500">
+                    <div class="bg-purple-50 text-purple-600 w-10 h-10 rounded flex items-center justify-center mb-4" aria-hidden="true"><i class="fas fa-tools"></i></div>
+                    <h3 class="font-bold text-xl mb-3">Administración</h3>
+                    <ul class="text-sm space-y-2 text-gray-600">
+                        <li><strong>Portal:</strong> Interfaz gráfica.</li>
+                        <li><strong>Cloud Shell:</strong> Terminal en navegador.</li>
+                        <li><strong>CLI / PowerShell:</strong> Automatización.</li>
+                        <li><strong>Arc:</strong> Gestiona fuera de Azure.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. GOBERNANZA Y CUMPLIMIENTO -->
+        <section id="gobernanza" class="scroll-mt-24" aria-labelledby="gobernanza-h">
+            <div class="flex items-center space-x-4 mb-10">
+                <span class="bg-orange-600 text-white w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl shadow-lg" aria-hidden="true">4</span>
+                <h2 id="gobernanza-h" class="text-3xl md:text-4xl font-bold">Gobernanza y Cumplimiento</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 section-card p-8">
+                    <h3 class="text-2xl font-bold mb-6">Seguridad y Control de Identidad</h3>
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-blue-800 flex items-center"><i class="fas fa-id-card mr-2" aria-hidden="true"></i> Microsoft Entra ID</h4>
+                            <p class="text-sm text-gray-600">Servicio de identidades (SSO, MFA).</p>
+                            <h4 class="font-bold text-blue-800 flex items-center"><i class="fas fa-key mr-2" aria-hidden="true"></i> RBAC</h4>
+                            <p class="text-sm text-gray-600">Control de acceso por roles para mínimo privilegio.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-orange-800 flex items-center"><i class="fas fa-file-contract mr-2" aria-hidden="true"></i> Azure Policy</h4>
+                            <p class="text-sm text-gray-600">Evalúa recursos y detecta incumplimientos.</p>
+                            <h4 class="font-bold text-orange-800 flex items-center"><i class="fas fa-lock mr-2" aria-hidden="true"></i> Bloqueos de Recursos</h4>
+                            <p class="text-sm text-gray-600">Protege contra borrados o cambios accidentales.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="section-card p-8 bg-gray-900 text-white">
+                    <h3 class="text-xl font-bold mb-6 text-orange-400 uppercase tracking-widest text-xs">Gestión de Costes</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400">PASO 1: ESTIMACIÓN</span>
+                            <p class="text-sm mt-1">Usa la Calculadora de Precios antes de empezar.</p>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-gray-400">PASO 2: COMPARACIÓN</span>
+                            <p class="text-sm mt-1">Calcula TCO vs datacenter propio.</p>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-gray-400">PASO 3: MONITORIZACIÓN</span>
+                            <p class="text-sm mt-1">Azure Cost Management da visibilidad en tiempo real.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal de IA Flotante Mejorado -->
+    <div id="ai-modal" class="fixed inset-0 bg-black/60 z-[100] hidden items-center justify-center p-4" aria-hidden="true">
+        <div id="ai-dialog" class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl transform transition-all" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+            <div class="p-6 border-b flex justify-between items-center bg-gray-50 rounded-t-3xl">
+                <h3 id="modal-title" class="font-bold text-xl flex items-center text-blue-900">
+                    <i class="fas fa-sparkles mr-3 text-yellow-500" aria-hidden="true"></i> ✨ Asistente Inteligente
+                </h3>
+                <button id="ai-close" type="button" aria-label="Cerrar asistente" class="text-gray-400 hover:text-red-500 text-2xl transition">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto prose prose-blue max-w-none text-gray-700" tabindex="0">
+                <!-- Contenido generado -->
+                <div class="text-center py-12"><div class="loader mb-4"></div><p class="text-gray-500">Aquí aparecerá la información generada por la IA.</p></div>
+            </div>
+            <div class="p-4 border-t bg-gray-50 rounded-b-3xl flex justify-between items-center">
+                <span class="text-xs text-gray-400">Potenciado por Gemini 2.5 Flash</span>
+                <button id="ai-close-2" type="button" class="bg-blue-600 text-white px-4 py-2 rounded-xl font-bold hover:bg-blue-700">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-8 text-2xl text-gray-400">
+                <a href="#" aria-label="LinkedIn" class="hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="GitHub" class="hover:text-black"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="YouTube" class="hover:text-red-600"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="text-gray-500 font-medium">© 2025 Azure Mastery Portal - Inspirado en Ciberphony</p>
+            <p class="text-xs text-gray-400 mt-2 italic">Este es un recurso educativo para preparación de examen.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuración: la apiKey debería inyectarse por el entorno en tiempo de despliegue
+        const apiKey = ""; // <-- Rellenar en entorno de despliegue (NO subir la key a repo)
+
+        // Utils de accesibilidad y modal con focus trap básico
+        (function () {
+            const aiGenerateBtn = document.getElementById('ai-generate');
+            const aiHint = document.getElementById('ai-hint');
+            const modal = document.getElementById('ai-modal');
+            const dialog = document.getElementById('ai-dialog');
+            const content = document.getElementById('modal-content');
+            const closeBtns = [document.getElementById('ai-close'), document.getElementById('ai-close-2')];
+            let lastFocused = null;
+
+            // Estado del botón IA
+            function updateAIBtn() {
+                if (!apiKey) {
+                    aiGenerateBtn.setAttribute('disabled', 'true');
+                    aiGenerateBtn.setAttribute('aria-disabled', 'true');
+                    aiHint.textContent = "Clave de IA no configurada. Coloca la API key en el entorno para habilitar la generación.";
+                } else {
+                    aiGenerateBtn.removeAttribute('disabled');
+                    aiGenerateBtn.removeAttribute('aria-disabled');
+                    aiHint.textContent = "";
+                }
+            }
+            updateAIBtn();
+
+            // Abrir modal con manejo de foco
+            function openModal(initialHTML = '') {
+                lastFocused = document.activeElement;
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
+                modal.setAttribute('aria-hidden', 'false');
+                content.innerHTML = initialHTML || '<div class="text-center py-8"><div class="loader mb-4"></div><p class="text-gray-500">Generando...</p></div>';
+                // Focus a dialog
+                setTimeout(() => { dialog.focus(); }, 50);
+                document.addEventListener('keydown', onKeyDown);
+                modal.addEventListener('click', onOutsideClick);
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+                modal.style.display = '';
+                modal.setAttribute('aria-hidden', 'true');
+                document.removeEventListener('keydown', onKeyDown);
+                modal.removeEventListener('click', onOutsideClick);
+                if (lastFocused) lastFocused.focus();
+            }
+
+            function onKeyDown(e) {
+                if (e.key === 'Escape') closeModal();
+                // Trap focus (basic)
+                if (e.key === 'Tab') {
+                    const focusables = dialog.querySelectorAll('button, a, [tabindex]:not([tabindex="-1"])');
+                    if (!focusables.length) return;
+                    const first = focusables[0];
+                    const last = focusables[focusables.length - 1];
+                    if (e.shiftKey && document.activeElement === first) {
+                        e.preventDefault();
+                        last.focus();
+                    } else if (!e.shiftKey && document.activeElement === last) {
+                        e.preventDefault();
+                        first.focus();
+                    }
+                }
+            }
+
+            function onOutsideClick(e) {
+                if (!dialog.contains(e.target)) closeModal();
+            }
+
+            // IA call (reutiliza tu función pero con control de errores y tiempo máximo)
+            async function callGemini(prompt, systemPrompt) {
+                if (!apiKey) throw new Error('API key no configurada');
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                };
+                const delays = [1000, 2000, 4000];
+                for (let attempt = 0; attempt <= delays.length; attempt++) {
+                    try {
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 20000); // 20s timeout
+                        const res = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload),
+                            signal: controller.signal
+                        });
+                        clearTimeout(timeoutId);
+                        if (!res.ok) throw new Error('Error en API: ' + res.status);
+                        const json = await res.json();
+                        return json.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                    } catch (err) {
+                        if (attempt === delays.length) throw err;
+                        await new Promise(r => setTimeout(r, delays[attempt]));
+                    }
+                }
+            }
+
+            // Conversión Markdown muy básica y segura (limita etiquetas)
+            function safeMarkdownToHtml(md) {
+                // Simple formatting for headings, bold, lists and paragraphs
+                let out = md
+                    .replace(/</g, '&lt;').replace(/>/g, '&gt;') // escape raw tags
+                    .replace(/\*\*\*(.*?)\*\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/### (.*?)\n/g, '<h3 class="text-xl font-bold mt-4 mb-2 text-blue-800">$1</h3>')
+                    .replace(/## (.*?)\n/g, '<h2 class="text-2xl font-bold mt-6 mb-3 text-blue-900 border-b pb-2">$1</h2>')
+                    .replace(/^- (.*?)(\n|$)/gm, '<li class="ml-4">$1</li>')
+                    .replace(/\n{2,}/g, '</p><p>')
+                    .replace(/\n/g, '<br>');
+                out = '<p>' + out + '</p>';
+                // Wrap list items into <ul>
+                out = out.replace(/(<p>)?(?:<li.*?<\/li>)([\s\S]*?)(<\/p>)?/gm, function (m) {
+                    const items = m.match(/<li.*?<\/li>/g);
+                    if (!items) return m;
+                    return '<ul class="ml-6 my-3">' + items.join('') + '</ul>';
+                });
+                return out;
+            }
+
+            // Handler: generar tipo 'flashcards' predeterminado
+            async function onGenerate() {
+                if (!apiKey) {
+                    openModal('<div class="p-6"><p class="text-red-600">La clave de IA no está configurada. Configura la variable de entorno con la API key para activar esta función.</p></div>');
+                    return;
+                }
+                openModal('<div class="text-center py-10"><div class="loader mb-4"></div><p class="text-gray-500">Generando contenido con IA...</p></div>');
+                try {
+                    const systemPrompt = "Eres un instructor Master de Azure con certificaciones vigentes. Responde en español y usa un formato claro.";
+                    const prompt = "Genera un set de 10 flashcards de alto impacto sobre 'todo el examen' orientado a AZ-900. Formato Pregunta/Respuesta.";
+                    const result = await callGemini(prompt, systemPrompt);
+                    content.innerHTML = safeMarkdownToHtml(result || 'No se recibió contenido de la IA.');
+                } catch (err) {
+                    content.innerHTML = '<div class="bg-red-50 border border-red-200 p-6 rounded-2xl text-red-700 text-center">No pudimos conectar con el motor de IA. Por favor, revisa tu conexión o la configuración de la API key.</div>';
+                    console.error(err);
+                }
+            }
+
+            // Event listeners
+            aiGenerateBtn.addEventListener('click', onGenerate);
+            closeBtns.forEach(b => b && b.addEventListener('click', closeModal));
+
+            // Also allow Enter on focused button
+            aiGenerateBtn.addEventListener('keyup', (e) => { if (e.key === 'Enter') onGenerate(); });
+
+            // Close modal with overlay click and ESC handled in open/close helpers
+        })();
+    </script>
+</body>
+</html>
